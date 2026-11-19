@@ -25,7 +25,7 @@ if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
 r.dataset.theme=t;r.classList.add('js')})();
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Person","name":"Kartikey Singh","jobTitle":"Associate Software Engineer","worksFor":{"@type":"Organization","name":"Accenture"},"alumniOf":{"@type":"CollegeOrUniversity","name":"GLA University"},"email":"mailto:kartikey.j.singh@accenture.com","knowsAbout":["Oracle SQL","PL/SQL","Oracle APEX","React","Node.js","Generative AI","Large Language Models","Claude API","Model Context Protocol"]}
+{"@context":"https://schema.org","@type":"Person","name":"Kartikey Singh","jobTitle":"Associate Software Engineer","worksFor":{"@type":"Organization","name":"Accenture"},"alumniOf":{"@type":"CollegeOrUniversity","name":"GLA University"},"knowsAbout":["Oracle SQL","PL/SQL","Oracle APEX","React","Node.js","Generative AI","Large Language Models","Claude API","Model Context Protocol"]}
 </script>
 
 <style>
@@ -476,6 +476,38 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
   .track{animation:none}
   .cur{display:none}
 }
+
+/* ===== premium dark palette ===== */
+[data-theme=dark]{--bg:#0B0F19;--bg2:#0E1424;--surface:#111827;--surface2:#151C2B;--line:#263247;--ink:#F8FAFC;--muted:#94A3B8;--dim:#64748B;
+--accent:#4F46E5;--accent-h:#6366F1;--accent-t:#A5B4FC;--accent-soft:#1E1B4B;--teal:#06B6D4;--teal-t:#67E8F9;--teal-soft:#0C2A36;
+--glass:rgba(17,24,39,.8);--code:#070A12;--sh-2:0 2px 4px rgba(0,0,0,.3),0 28px 48px -22px rgba(79,70,229,.5);--glow-a:rgba(79,70,229,.28);--glow-b:rgba(6,182,212,.16)}
+/* ===== dialogs: case study, recruiter view, terminal ===== */
+.dlg{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:var(--r-l);padding:0;width:min(760px,100% - 24px);max-height:min(88vh,860px);box-shadow:var(--sh-2);overflow:hidden}
+.dlg[open]{display:flex;flex-direction:column;animation:dlgin .28s var(--ease)}
+.dlg::backdrop{background:rgba(5,8,16,.62);backdrop-filter:blur(3px)}
+@keyframes dlgin{from{opacity:0;transform:translateY(14px) scale(.985)}}
+.dlg-h{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:22px 26px 14px;border-bottom:1px solid var(--line)}
+.dlg-h h3{font:700 1.4rem/1.2 var(--f-display)}.dlg-h small{color:var(--muted)}
+.dlg-x{flex:none;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--surface2);color:var(--ink);font-size:1.2rem;cursor:pointer}
+.dlg-x:hover{border-color:var(--accent-t)}
+.dlg-b{padding:8px 26px 26px;overflow:auto}
+.dlg-b h4{font:600 .95rem var(--f-display);color:var(--accent-t);margin:20px 0 6px}
+.dlg-b p,.dlg-b li{color:var(--muted);font-size:.98rem}
+.dlg-b ul{display:grid;gap:6px;padding-left:18px;list-style:disc}
+.dlg-b .tags{margin-top:6px}.dlg-b .cta{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+.note{border-left:3px solid var(--amber);background:var(--amber-soft);color:var(--amber-t)!important;padding:8px 12px;border-radius:8px;margin-top:10px}
+.case-btn{margin-top:14px}
+.rv{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:4px 26px}
+.rv h4{margin-top:16px}.rv p{color:var(--ink)}
+.linkbtn{background:none;border:0;padding:0;font:inherit;color:inherit;text-decoration:underline;cursor:pointer}
+.rv-btn{padding:8px 14px;font-size:.9rem}
+@media(max-width:1180px){.rv-btn{display:none}}
+.term{background:var(--code);color:#E2E8F0;font:400 .9rem/1.6 var(--f-mono);padding:16px 20px;height:min(52vh,420px);overflow:auto;white-space:pre-wrap}
+.term .c{color:#67E8F9}.term .d{color:#94A3B8}
+.term-in{display:flex;gap:8px;align-items:center;background:var(--code);border-top:1px solid #263247;padding:10px 20px;color:#67E8F9;font:500 .95rem var(--f-mono)}
+.term-in input{flex:1;background:none;border:0;color:#F8FAFC;font:inherit;outline:0}
+.term-in:focus-within{box-shadow:inset 0 0 0 2px var(--accent-t)}
+@media(prefers-reduced-motion:reduce){.dlg[open]{animation:none}}
 </style>
 </head>
 <body>
@@ -519,6 +551,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
     <li class="only-m"><a data-resume href="resume.pdf" target="_blank" rel="noopener">Resume</a></li>
   </ul>
   <a class="btn btn-res" data-resume href="resume.pdf" target="_blank" rel="noopener" aria-label="Open my resume (PDF) in a new tab"><svg class="icon"><use href="#i-file"/></svg>Resume</a>
+  <button class="btn btn-line rv-btn" type="button" data-open="rv">Recruiter view</button>
   <button class="tbtn" id="theme" type="button" aria-label="Switch to dark mode"><svg class="icon sun"><use href="#i-sun"/></svg><svg class="icon moon"><use href="#i-moon"/></svg></button>
   <a class="btn btn-ink btn-acc" href="#contact">Contact</a>
   <button class="burger" id="burger" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="menu"><span></span></button>
@@ -578,7 +611,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
 <div class="stats">
   <div class="wrap">
     <div class="stat reveal"><strong data-count="10">10</strong><span>Certifications</span></div>
-    <div class="stat reveal"><strong data-count="4">4</strong><span>Projects built</span></div>
+    <div class="stat reveal"><strong data-count="7">7</strong><span>Projects built</span></div>
     <div class="stat reveal"><strong data-count="8">8</strong><span>Programming languages</span></div>
     <div class="stat reveal"><strong data-count="30" data-suffix="%">30%</strong><span>Fewer false alarms in my smoke detection system</span></div>
   </div>
@@ -675,6 +708,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
             <!-- Add repo/demo buttons here when ready:
             <div class="cta"><a class="btn btn-line" href="REPO_URL" target="_blank" rel="noopener"><svg class="icon fill"><use href="#i-gh"/></svg>Source</a></div> -->
             <div class="tags"><span>React</span><span>Tailwind CSS</span><span>Node.js</span><span>Express.js</span><span>MongoDB</span><span>SQL</span><span>Backblaze B2</span></div>
+            <button class="btn btn-line case-btn" type="button" data-case="crypterra">View case study</button>
           </div>
           <div class="viz">
             <svg class="diagram" viewBox="0 0 460 290" role="img" aria-label="Concept diagram: an organization splits into departments and folders, with view, upload and share permissions and an expiring link">
@@ -758,6 +792,46 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
           <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
         </div>
       </article>
+
+      <article class="card proj pitem reveal" data-cat="fullstack" data-tilt>
+        <div class="viz">
+          <svg class="diagram" viewBox="0 0 300 150" role="img" aria-label="Abstract concept sketch for ParikshaPortal"><rect class="fw" x="30" y="14" width="100" height="122" rx="10"/><rect class="fc" x="44" y="30" width="60" height="10" rx="5"/><rect class="fp" x="44" y="52" width="72" height="8" rx="4"/><rect class="fp" x="44" y="68" width="60" height="8" rx="4"/><rect class="fp" x="44" y="84" width="68" height="8" rx="4"/><rect class="fw" x="160" y="14" width="110" height="122" rx="10"/><rect class="ft" x="176" y="92" width="16" height="30" rx="3"/><rect class="fc" x="202" y="68" width="16" height="54" rx="3"/><rect class="fa" x="228" y="40" width="16" height="82" rx="3"/></svg>
+          <small>Concept sketch</small>
+        </div>
+        <div class="body">
+          <span class="kind">Full-stack</span>
+          <h3>ParikshaPortal</h3>
+          <p>An examination and result management platform with admin and student roles, question paper management, exam scheduling and student report cards.</p>
+          <div class="tags"><span>Role-based</span><span>Scheduling</span><span>Report cards</span></div>
+          <button class="btn btn-line case-btn" type="button" data-case="pariksha">View case study</button>
+        </div>
+      </article>
+      <article class="card proj pitem reveal" data-cat="web" data-tilt>
+        <div class="viz">
+          <svg class="diagram" viewBox="0 0 300 150" role="img" aria-label="Abstract concept sketch for Dragonborn Arena"><path class="fl" d="M40 110C90 110 90 40 150 40S210 110 262 40"/><circle class="fc" cx="40" cy="110" r="12"/><circle class="ft" cx="150" cy="40" r="12"/><circle class="fa" cx="262" cy="40" r="12"/><rect class="fp" x="110" y="112" width="80" height="10" rx="5"/></svg>
+          <small>Concept sketch</small>
+        </div>
+        <div class="body">
+          <span class="kind">Web · Game</span>
+          <h3>Dragonborn Arena</h3>
+          <p>A dragon-themed interactive quiz adventure with a fantasy interface, animations, sound effects and questions that adapt as you progress.</p>
+          <div class="tags"><span>Quiz game</span><span>Animation</span><span>Sound</span></div>
+          <button class="btn btn-line case-btn" type="button" data-case="dragonborn">View case study</button>
+        </div>
+      </article>
+      <article class="card proj pitem reveal" data-cat="web" data-tilt>
+        <div class="viz">
+          <svg class="diagram" viewBox="0 0 300 150" role="img" aria-label="Abstract concept sketch for Courtrix"><path class="fl" d="M70 38H110V75H150M70 112H110V75"/><path class="fl" d="M190 75H230"/><rect class="fw" x="14" y="24" width="56" height="28" rx="8"/><rect class="fw" x="14" y="98" width="56" height="28" rx="8"/><rect class="fc" x="150" y="58" width="40" height="34" rx="9"/><rect class="ft" x="230" y="58" width="56" height="34" rx="9"/></svg>
+          <small>Concept sketch</small>
+        </div>
+        <div class="body">
+          <span class="kind">Web</span>
+          <h3>Courtrix</h3>
+          <p>A badminton tournament and referee management project covering players, match fixtures, qualification logic and tournament progression.</p>
+          <div class="tags"><span>Fixtures</span><span>Qualification logic</span><span>Referee tools</span></div>
+          <button class="btn btn-line case-btn" type="button" data-case="courtrix">View case study</button>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -825,10 +899,10 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
   <div class="wrap">
     <h2 class="reveal">Let's build something <span class="mk">useful.</span></h2>
     <p class="reveal">I'm open to conversations about Oracle APEX and database work, full-stack roles, and generative AI projects.</p>
-    <a class="mail reveal" href="mailto:kartikey.j.singh@accenture.com">kartikey.j.singh@accenture.com</a>
+    <a class="mail reveal" data-email href="#contact"></a>
     <div class="cta reveal">
-      <a class="btn btn-white" data-mag href="mailto:kartikey.j.singh@accenture.com"><svg class="icon"><use href="#i-mail"/></svg>Email me</a>
-      <button class="btn btn-ghostw" data-mag type="button" id="copy"><svg class="icon"><use href="#i-copy"/></svg>Copy email</button>
+      <a class="btn btn-white" data-mag data-email href="#contact"><svg class="icon"><use href="#i-mail"/></svg>Email me</a>
+      <button class="btn btn-ghostw" data-mag data-email type="button" id="copy"><svg class="icon"><use href="#i-copy"/></svg>Copy email</button>
       <a class="btn btn-ghostw" data-mag data-resume href="resume.pdf" target="_blank" rel="noopener"><svg class="icon"><use href="#i-file"/></svg>Resume</a>
       <a class="btn btn-ghostw" data-mag href="https://linkedin.com" target="_blank" rel="noopener"><svg class="icon fill"><use href="#i-in"/></svg>LinkedIn</a>
       <a class="btn btn-ghostw" data-mag href="https://github.com" target="_blank" rel="noopener"><svg class="icon fill"><use href="#i-gh"/></svg>GitHub</a>
@@ -839,6 +913,10 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
   <div class="cticker" aria-hidden="true"><div class="track"><span>Let's talk</span><span>Oracle APEX</span><span>Full-stack</span><span>Generative AI</span><span>Claude API</span></div></div>
 </section>
 </main>
+<dialog class="dlg" id="dlg-case" aria-labelledby="case-title"><div class="dlg-h"><div><small id="case-kind"></small><h3 id="case-title"></h3></div><button class="dlg-x" type="button" data-close aria-label="Close case study">&times;</button></div><div class="dlg-b" id="case-body"></div></dialog>
+<dialog class="dlg" id="dlg-rv" aria-labelledby="rv-title"><div class="dlg-h"><div><small>Quick summary for recruiters</small><h3 id="rv-title">Kartikey Singh</h3></div><button class="dlg-x" type="button" data-close aria-label="Close recruiter view">&times;</button></div><div class="dlg-b"><div class="rv" id="rv-body"></div><div class="cta"><a class="btn btn-primary" data-resume href="resume.pdf" target="_blank" rel="noopener"><svg class="icon"><use href="#i-file"/></svg>Open resume</a><a class="btn btn-line" href="#contact" data-close>Contact</a></div></div></dialog>
+<dialog class="dlg" id="dlg-term" aria-labelledby="term-title"><div class="dlg-h"><div><small>Type a command</small><h3 id="term-title">Terminal</h3></div><button class="dlg-x" type="button" data-close aria-label="Close terminal">&times;</button></div><div class="term" id="term-out" role="log" aria-live="polite"></div><label class="term-in"><span aria-hidden="true">&gt;</span><span class="sr" style="position:absolute;left:-999px">Command</span><input id="term-cmd" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="help"></label></dialog>
+
 
 <footer>
   <div class="wrap">
@@ -860,9 +938,10 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
         <div class="social">
           <a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub"><svg class="icon fill"><use href="#i-gh"/></svg></a>
           <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="icon fill"><use href="#i-in"/></svg></a>
-          <a href="mailto:kartikey.j.singh@accenture.com" aria-label="Email"><svg class="icon"><use href="#i-mail"/></svg></a>
+          <a data-email href="#contact" aria-label="Email"><svg class="icon"><use href="#i-mail"/></svg></a>
         </div>
         <p><a data-resume download="Kartikey_Singh_Resume.pdf" href="resume.pdf">Download resume (PDF)</a></p>
+        <p><button class="linkbtn" type="button" data-open="rv">Recruiter view</button> &nbsp;|&nbsp; <button class="linkbtn" type="button" data-open="term">Terminal</button></p>
       </div>
     </div>
     <div class="foot-bottom"><span>© 2026 Kartikey Singh</span><a href="#top">Back to top</a></div>
@@ -1112,8 +1191,100 @@ window.SITE = {
     });
   });
 
+
+  /* ---------- config: public contact email (leave empty to hide email buttons) ---------- */
+  const EMAIL = 'kartikey.singhh121@gmail.com';
+  $$('[data-email]').forEach(el => {
+    if (!EMAIL) { el.hidden = true; return; }
+    if (el.tagName === 'A') { el.href = 'mailto:' + EMAIL; if (el.classList.contains('mail')) el.textContent = EMAIL; }
+  });
+
+  /* ---------- case studies ---------- */
+  const CASES = {
+    crypterra: { kind: 'Full-stack · Featured', title: 'Crypterra: secure cloud storage platform',
+      overview: 'A cloud storage platform where organizations, departments, users and folders each carry their own access rules.',
+      problem: 'Shared storage gets messy when different teams need different levels of access to the same files.',
+      solution: 'Permissions are modelled per organization, department and folder, so each user can view, upload or share only what their role allows. Shared files go out through expiring links.',
+      features: ['Role-based access control across organizations, departments, users and folders', 'Granular permissions for viewing, uploading and sharing', 'Expiring secure file-sharing links', 'Activity and audit tracking for uploaded and shared content'],
+      stack: ['React', 'Tailwind CSS', 'Node.js', 'Express.js', 'MongoDB', 'SQL', 'Backblaze B2'],
+      contribution: 'Built end to end: the React and Tailwind CSS interface, the Node.js and Express backend, and the data layer.' },
+    pariksha: { kind: 'Full-stack', title: 'ParikshaPortal',
+      overview: 'An examination and result management platform with separate admin and student experiences.',
+      problem: 'Running exams involves many separate tasks: preparing papers, scheduling, and publishing results.',
+      solution: 'One portal where admins manage question papers, exam schedules and results, and students see their own report cards.',
+      features: ['Admin and student roles', 'Question paper management', 'Examination scheduling', 'Student report cards', 'Result management'],
+      planned: 'AI-assisted answer evaluation is planned and not yet implemented.' },
+    dragonborn: { kind: 'Web · Game', title: 'Dragonborn Arena',
+      overview: 'A dragon-themed interactive quiz adventure.',
+      problem: 'Quizzes are often static lists of questions.',
+      solution: 'A fantasy-themed game where progress feels like an adventure, and the questions adapt as you advance.',
+      features: ['Interactive quiz experience', 'Fantasy-themed interface', 'Dynamic game progression', 'Animations and sound effects', 'Adaptive question-based experience'] },
+    courtrix: { kind: 'Web', title: 'Courtrix',
+      overview: 'A badminton tournament and referee management project.',
+      problem: 'Organizers and referees need to track players, fixtures and who advances without juggling spreadsheets.',
+      solution: 'A single place to manage players, generate match fixtures, apply qualification logic and follow tournament progression, with an interface built around what referees need.',
+      features: ['Player management', 'Match fixtures', 'Qualification logic', 'Tournament progression', 'Referee-oriented usability'] }
+  };
+  const dlgOpen = d => { if (!d.open) d.showModal(); };
+  $$('dialog.dlg').forEach(d => {
+    d.addEventListener('click', e => { if (e.target === d || e.target.closest('[data-close]')) d.close(); });
+  });
+  const sec = (h, body) => body ? `<h4>${h}</h4>${body}` : '';
+  $$('[data-case]').forEach(b => b.addEventListener('click', () => {
+    const c = CASES[b.dataset.case]; if (!c) return;
+    $('#case-kind').textContent = c.kind; $('#case-title').textContent = c.title;
+    $('#case-body').innerHTML =
+      sec('Overview', `<p>${c.overview}</p>`) + sec('Problem', `<p>${c.problem}</p>`) + sec('Solution', `<p>${c.solution}</p>`) +
+      sec('Key features', `<ul>${c.features.map(f => `<li>${f}</li>`).join('')}</ul>`) +
+      (c.planned ? `<p class="note">${c.planned}</p>` : '') +
+      sec('Technology', c.stack ? `<div class="tags">${c.stack.map(t => `<span>${t}</span>`).join('')}</div>` : '') +
+      sec('My contribution', c.contribution ? `<p>${c.contribution}</p>` : '') +
+      (c.stack ? '' : '<p class="note">Stack, screenshots and links will appear here once published.</p>');
+    dlgOpen($('#dlg-case'));
+  }));
+
+  /* ---------- recruiter view (built from the page itself, so it never drifts) ---------- */
+  const certs = $$('#certifications .cert').map(c => `${$('h3', c).textContent} (${$('.iss', c).textContent})`);
+  const projs = Object.values(CASES).map(c => c.title.split(':')[0]);
+  const rvBlock = (h, html) => `<div><h4>${h}</h4>${html}</div>`;
+  $('#rv-body').innerHTML =
+    rvBlock('Current role', '<p>Associate Software Engineer, Accenture (since July 2026)</p>') +
+    rvBlock('Specialization', '<p>Oracle SQL, PL/SQL and Oracle APEX Cloud development; database-driven applications</p>') +
+    rvBlock('Core skills', '<p>Oracle SQL, PL/SQL, Oracle APEX, Java, React, Node.js, Express.js, Git</p>') +
+    rvBlock('Education', '<p>B.Tech, Computer Science, GLA University (2022 to 2026)</p>') +
+    rvBlock('Featured projects', `<ul>${projs.map(p => `<li>${p}</li>`).join('')}</ul>`) +
+    rvBlock('Certifications', `<ul>${certs.map(c => `<li>${c}</li>`).join('')}</ul>`) +
+    rvBlock('Contact', `<p><a href="#contact" data-close>Contact section</a>${EMAIL ? ' · ' + EMAIL : ''}</p>`);
+  $$('[data-open=rv]').forEach(b => b.addEventListener('click', () => dlgOpen($('#dlg-rv'))));
+
+  /* ---------- terminal ---------- */
+  const tout = $('#term-out'), inp = $('#term-cmd');
+  const say = (t, cls) => { const l = document.createElement('div'); if (cls) l.className = cls; l.textContent = t; tout.append(l); tout.scrollTop = tout.scrollHeight; };
+  const CMDS = {
+    help: () => 'Commands: about, skills, projects, experience, certifications, contact, clear',
+    about: () => 'Kartikey Singh. Associate Software Engineer at Accenture, working with Oracle SQL, PL/SQL and APEX. B.Tech in Computer Science, GLA University. Also builds full-stack and generative AI projects.',
+    skills: () => $$('#skills .panel').map(p => $('h3', p).textContent + ': ' + $$('.chip', p).map(c => c.textContent).join(', ')).join('\n'),
+    projects: () => Object.values(CASES).map(c => '- ' + c.title).concat('- Smart Agriculture System', '- Smoke Detection System', '- Personal Portfolio').join('\n'),
+    experience: () => $$('#timeline .job').map(j => $('h3', j).textContent + ', ' + $('.org', j).textContent + ' (' + $('.when', j).textContent.replace('Current', '').trim() + ')').join('\n'),
+    certifications: () => certs.map(c => '- ' + c).join('\n'),
+    contact: () => ['LinkedIn: ' + $('#contact a[href*=linkedin]').href, 'GitHub: ' + $('#contact a[href*=github]').href].concat(EMAIL ? ['Email: ' + EMAIL] : []).join('\n'),
+    clear: () => { tout.textContent = ''; return ''; }
+  };
+  $$('[data-open=term]').forEach(b => b.addEventListener('click', () => {
+    dlgOpen($('#dlg-term'));
+    if (!tout.childElementCount) say("Type 'help' to see what you can ask.", 'd');
+    inp.focus();
+  }));
+  inp.addEventListener('keydown', e => {
+    if (e.key !== 'Enter') return;
+    const q = inp.value.trim().toLowerCase(); inp.value = ''; if (!q) return;
+    say('> ' + q, 'c');
+    const r = CMDS[q] ? CMDS[q]() : `Unknown command '${q}'. Try 'help'.`;
+    if (r) say(r);
+  });
+
   /* ---------- copy email with honest feedback ---------- */
-  const toast = $('#toast'), email = 'kartikey.j.singh@accenture.com';
+  const toast = $('#toast'), email = EMAIL;
   $('#copy').addEventListener('click', async () => {
     try { await navigator.clipboard.writeText(email); toast.textContent = 'Email copied to clipboard.'; }
     catch { toast.textContent = 'Copy failed. Email me at ' + email; }
